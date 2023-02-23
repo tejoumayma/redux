@@ -1,7 +1,9 @@
 import React from "react";
 import Task from "./Task";
-
+import { useSelector } from "react-redux";
 const TaskList = () => {
+  // const todos = useSelector((state) => state.TaskReducer.todos);
+
   return (
     <ul className="liste-group mt-3">
       {[

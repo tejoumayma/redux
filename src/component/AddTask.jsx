@@ -1,15 +1,34 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTask } from "../redux/action/taskaction";
 const AddTask = () => {
+  const [text, setText] = useState("");
+  const dispatch = useDispatch();
+  const onClickAdd = () => {
+    if (text) {
+      const newTask = { id: Date.now(), description: text, isDone: false };
+      dispatch(addTask(newTask));
+      setText("");
+    }
+  };
   return (
     <div className="card">
       <div className="input-group mb-2">
         <input
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
           type="text"
           className="form-control"
           placeholder="add your task"
         />
-        <button className="btn btn-primary" type="button" id="button-addon1">
+        <button
+          className="btn btn-primary"
+          type="button"
+          id="button-addon1"
+          onClick={onClickAdd}
+        >
           Add
         </button>
       </div>

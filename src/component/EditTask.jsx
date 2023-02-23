@@ -1,6 +1,13 @@
 import React from "react";
-
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 const EditTask = () => {
+  const dispatch = useDispatch();
+  const [text, setText] = useState("");
+  const { current } = useSelector((state) => state.taskReducer);
+  // useEffect()=>{if (current!===null) {
+  //   setText(current.description)
+  // }},[current];
   return (
     <div>
       <div
@@ -24,7 +31,11 @@ const EditTask = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <input type="text" />
+              <input
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
             </div>
             <div className="modal-footer">
               <button
