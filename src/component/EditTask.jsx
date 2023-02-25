@@ -1,13 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { updateTask } from "../redux/action/taskaction";
 const EditTask = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const { current } = useSelector((state) => state.taskReducer);
-  // useEffect()=>{if (current!===null) {
-  //   setText(current.description)
-  // }},[current];
+  const onSave = () => {
+    dispatch(updateTask({ id: current.id, description: text }));
+  };
+  useEffect(() => {
+    if (current !== null) {
+      setText(current.description);
+    }
+  }, [current]);
   return (
     <div>
       <div
@@ -45,7 +51,11 @@ const EditTask = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onSave}
+              >
                 Save changes
               </button>
             </div>

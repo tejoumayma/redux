@@ -1,4 +1,11 @@
-import { ADD_TASK, DELETE_TASK, SET_CURRENT_TASK } from "../action/type";
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  FILTER_TASK,
+  SET_CURRENT_TASK,
+  TOGGLE_COMPLETED_TASK,
+  UPDATE_TASK,
+} from "../action/type";
 
 const initialstate = {
   todos: [],
@@ -12,12 +19,38 @@ const taskReducer = (state = initialstate, { type, payload }) => {
     case DELETE_TASK:
       return {
         ...state,
-        todos: [state.todos.filter((todo) => todo.id !== payload)],
+        todos: [...state.todos.filter((todo) => todo.id !== payload)],
       };
     case SET_CURRENT_TASK:
       return {
         ...state,
         current: payload,
+      };
+    case UPDATE_TASK:
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === payload.id
+            ? { ...todo, description: payload.description }
+            : todo
+        ),
+      };
+    case TOGGLE_COMPLETED_TASK:
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === payload ? { ...todo, isDone: !todo.isDone } : todo
+        ),
+      };
+    case FILTER_TASK:
+      return {
+        ...state,
+        FilteredTodos:
+          payload === "completed"
+            ? state.todos.filter((todo) => todo.isDone)
+            : payload === "incompleted"
+            ? state.todos.filter((todo) => !todo.isDone)
+            : [],
       };
     default:
       return state;

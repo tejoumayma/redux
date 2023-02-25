@@ -1,22 +1,32 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deletTask, setCurrentTask } from "../redux/action/taskaction";
+import {
+  deletTask,
+  setCurrentTask,
+  toggleComleted,
+} from "../redux/action/taskaction";
+
 const Task = ({ todo }) => {
   const dispatch = useDispatch();
   const onClick = (e) => {
     if (e.target.id === "edit") {
       dispatch(setCurrentTask(todo));
     }
-    if (e.target == "delete") {
+    if (e.target.id == "delete") {
       dispatch(deletTask(todo.id));
+    }
+    if (e.target.id === "completed") {
+      dispatch(toggleComleted(todo.id));
     }
   };
   return (
     <li
-      className="list-group-item d-flex align-item-center justify-content-between li"
+      className={`list-group-item d-flex align-item-center justify-content-between li ${
+        todo.isDone && "list-group-item-success"
+      }`}
       id="todo-list li"
     >
-      <div>{todo.description}</div>
+      <div className={todo.isDone ? "completed" : ""}>{todo.description}</div>
       <div className="btn-group" role="group">
         <i
           id="completed"

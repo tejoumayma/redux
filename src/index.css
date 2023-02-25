@@ -1,6 +1,7 @@
 .card {
   max-width: 500px;
   margin: auto;
+  background-color: brown;
 }
 * {
   margin: 0;
@@ -9,4 +10,11 @@
 i {
   padding: 0.5rem;
   cursor: pointer;
+}
+.form-lable {
+  margin: 10%;
+}
+
+.d-flex {
+  margin: 10%;
 }

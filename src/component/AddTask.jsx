@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../redux/action/taskaction";
+import { addTask, filterTask } from "../redux/action/taskaction";
 const AddTask = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
@@ -10,6 +10,9 @@ const AddTask = () => {
       dispatch(addTask(newTask));
       setText("");
     }
+  };
+  const onFiltre = (e) => {
+    dispatch(filterTask(e.target.id));
   };
   return (
     <div className="card">
@@ -34,19 +37,37 @@ const AddTask = () => {
       </div>
       <div className="d-flex justify-content-arround">
         <div>
-          <input type="checkbox" id="completed" value="completed" />
+          <input
+            type="radio"
+            name="task"
+            id="completed"
+            value="completed"
+            onClick={onFiltre}
+          />
           <label htmlFor="completed" className="form-lable">
             completed
           </label>
         </div>
         <div>
-          <input type="checkbox" id="incompleted" value="incompleted" />
+          <input
+            type="radio"
+            name="task"
+            id="incompleted"
+            value="incompleted"
+            onClick={onFiltre}
+          />
           <label htmlFor="incompleted" className="form-lable">
             incompleted
           </label>
         </div>
         <div>
-          <input type="checkbox" id="all" value="all" />
+          <input
+            type="radio"
+            name="task"
+            id="all"
+            value="all"
+            onClick={onFiltre}
+          />
           <label htmlFor="all" className="form-lable">
             All
           </label>
